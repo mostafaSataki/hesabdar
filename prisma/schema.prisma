@@ -1,9 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,20 +10,484 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// User and Authentication
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id            String   @id @default(cuid())
+  email         String   @unique
+  username      String   @unique
+  password      String
+  name          String?
+  role          UserRole @default(USER)
+  isActive      Boolean  @default(true)
+  lastLoginAt   DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("users")
 }
 
-model Post {
-  id        String   @id @default(cuid())
-  title     String
-  content   String?
-  published Boolean  @default(false)
-  authorId  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+enum UserRole {
+  ADMIN
+  ACCOUNTANT
+  USER
+  VIEWER
+}
+
+// Chart of Accounts
+model Account {
+  id          String      @id @default(cuid())
+  code        String      @unique
+  name        String
+  type        AccountType
+  parentId    String?
+  isActive    Boolean     @default(true)
+  balance     Float       @default(0)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@map("accounts")
+}
+
+enum AccountType {
+  ASSET
+  LIABILITY
+  EQUITY
+  REVENUE
+  EXPENSE
+}
+
+// Accounting Period
+model AccountingPeriod {
+  id          String   @id @default(cuid())
+  name        String
+  startDate   DateTime
+  endDate     DateTime
+  isClosed    Boolean  @default(false)
+  closedAt    DateTime?
+  closedBy    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([startDate, endDate])
+  @@map("accounting_periods")
+}
+
+// Customer
+model Customer {
+  id          String   @id @default(cuid())
+  code        String   @unique
+  name        String
+  address     String?
+  phone       String?
+  email       String?
+  taxId       String?
+  creditLimit Float    @default(0)
+  balance     Float    @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("customers")
+}
+
+// Supplier
+model Supplier {
+  id          String   @id @default(cuid())
+  code        String   @unique
+  name        String
+  address     String?
+  phone       String?
+  email       String?
+  taxId       String?
+  balance     Float    @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("suppliers")
+}
+
+// Product
+model Product {
+  id            String        @id @default(cuid())
+  code          String        @unique
+  name          String
+  description   String?
+  category      String?
+  unit          String
+  purchasePrice Float         @default(0)
+  salePrice     Float         @default(0)
+  quantity      Float         @default(0)
+  minQuantity   Float         @default(0)
+  isActive      Boolean       @default(true)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@map("products")
+}
+
+// Sales Invoice
+model SalesInvoice {
+  id            String            @id @default(cuid())
+  number        String            @unique
+  date          DateTime
+  customerId    String
+  description   String?
+  totalAmount   Float             @default(0)
+  discount      Float             @default(0)
+  taxAmount     Float             @default(0)
+  finalAmount   Float             @default(0)
+  status        InvoiceStatus     @default(DRAFT)
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+
+  @@map("sales_invoices")
+}
+
+enum InvoiceStatus {
+  DRAFT
+  POSTED
+  PAID
+  CANCELLED
+  RETURNED
+}
+
+// Sales Invoice Item
+model SalesInvoiceItem {
+  id          String  @id @default(cuid())
+  invoiceId   String
+  productId   String
+  quantity    Float
+  unitPrice   Float
+  discount    Float   @default(0)
+  totalPrice  Float
+  createdAt   DateTime @default(now())
+
+  @@map("sales_invoice_items")
+}
+
+// Purchase Invoice
+model PurchaseInvoice {
+  id            String            @id @default(cuid())
+  number        String            @unique
+  date          DateTime
+  supplierId    String
+  description   String?
+  totalAmount   Float             @default(0)
+  discount      Float             @default(0)
+  taxAmount     Float             @default(0)
+  finalAmount   Float             @default(0)
+  status        InvoiceStatus     @default(DRAFT)
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+
+  @@map("purchase_invoices")
+}
+
+// Purchase Invoice Item
+model PurchaseInvoiceItem {
+  id          String  @id @default(cuid())
+  invoiceId   String
+  productId   String
+  quantity    Float
+  unitPrice   Float
+  discount    Float   @default(0)
+  totalPrice  Float
+  createdAt   DateTime @default(now())
+
+  @@map("purchase_invoice_items")
+}
+
+// Bank Account
+model BankAccount {
+  id            String   @id @default(cuid())
+  accountNumber String   @unique
+  bankName      String
+  branchName    String?
+  accountHolder String?
+  balance       Float    @default(0)
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("bank_accounts")
+}
+
+// Receipt
+model Receipt {
+  id               String           @id @default(cuid())
+  number           String           @unique
+  date             DateTime
+  customerId       String
+  amount           Float
+  type             ReceiptType
+  description      String?
+  bankAccountId    String?
+  checkNumber      String?
+  referenceNumber  String?
+  status           TransactionStatus @default(PENDING)
+  createdById      String
+  salesInvoiceId   String?
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+
+  @@map("receipts")
+}
+
+enum ReceiptType {
+  CASH
+  CHECK
+  BANK_TRANSFER
+  POS
+  MONEY_ORDER
+}
+
+// Payment
+model Payment {
+  id               String           @id @default(cuid())
+  number           String           @unique
+  date             DateTime
+  supplierId       String
+  amount           Float
+  type             PaymentType
+  description      String?
+  bankAccountId    String?
+  checkNumber      String?
+  referenceNumber  String?
+  status           TransactionStatus @default(PENDING)
+  createdById      String
+  purchaseInvoiceId String?
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+
+  @@map("payments")
+}
+
+enum PaymentType {
+  CASH
+  CHECK
+  BANK_TRANSFER
+  ONLINE
+  MONEY_ORDER
+}
+
+// Check
+model Check {
+  id               String           @id @default(cuid())
+  number           String           @unique
+  amount           Float
+  date             DateTime
+  dueDate          DateTime
+  status           CheckStatus      @default(PENDING)
+  type             CheckType
+  relatedParty     String
+  bankAccountId    String?
+  description      String?
+  settlementDate   DateTime?
+  settlementAmount Float?
+  createdById      String
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+
+  @@map("checks")
+}
+
+enum CheckStatus {
+  PENDING
+  CLEARED
+  BOUNCED
+  CANCELLED
+}
+
+enum CheckType {
+  RECEIPT
+  PAYMENT
+}
+
+// Journal Entry
+model JournalEntry {
+  id          String           @id @default(cuid())
+  number      String           @unique
+  date        DateTime
+  description String?
+  status      EntryStatus      @default(DRAFT)
+  periodId    String
+  createdById String
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  @@map("journal_entries")
+}
+
+enum EntryStatus {
+  DRAFT
+  POSTED
+  CANCELLED
+}
+
+// Journal Entry Item
+model JournalEntryItem {
+  id          String  @id @default(cuid())
+  entryId     String
+  accountId   String
+  debit       Float   @default(0)
+  credit      Float   @default(0)
+  description String?
+  createdAt   DateTime @default(now())
+
+  @@map("journal_entry_items")
+}
+
+// Transaction
+model Transaction {
+  id           String           @id @default(cuid())
+  referenceId  String?
+  referenceType String?
+  amount       Float
+  type         TransactionType
+  description  String?
+  date         DateTime
+  accountId    String
+  periodId     String
+  createdById  String
+  createdAt    DateTime         @default(now())
+
+  @@map("transactions")
+}
+
+enum TransactionType {
+  DEBIT
+  CREDIT
+}
+
+enum TransactionStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+  BOUNCED
+}
+
+// Bank Reconciliation
+model BankReconciliation {
+  id               String   @id @default(cuid())
+  bankAccountId    String
+  statementDate    DateTime
+  statementBalance Float
+  systemBalance    Float
+  difference       Float
+  status           ReconciliationStatus @default(PENDING)
+  description      String?
+  reconciledById   String?
+  reconciledAt     DateTime?
+  createdById      String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("bank_reconciliations")
+}
+
+enum ReconciliationStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+}
+
+// Bank Discrepancy
+model BankDiscrepancy {
+  id                 String   @id @default(cuid())
+  reconciliationId   String
+  amount             Float
+  type               DiscrepancyType
+  description        String
+  resolution         String?
+  status             DiscrepancyStatus @default(OPEN)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@map("bank_discrepancies")
+}
+
+enum DiscrepancyType {
+  MISSING_TRANSACTION
+  DUPLICATE_TRANSACTION
+  AMOUNT_DIFFERENCE
+  DATE_DIFFERENCE
+  OTHER
+}
+
+enum DiscrepancyStatus {
+  OPEN
+  RESOLVED
+  IGNORED
+}
+
+// Payroll Record
+model PayrollRecord {
+  id            String   @id @default(cuid())
+  employeeId    String
+  periodId      String
+  basicSalary   Float
+  allowances    Float    @default(0)
+  deductions    Float    @default(0)
+  bonuses       Float    @default(0)
+  leaveDays     Float    @default(0)
+  leaveDeduction Float    @default(0)
+  netSalary     Float
+  status        PayrollStatus @default(DRAFT)
+  paymentDate   DateTime?
+  description   String?
+  createdById   String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("payroll_records")
+}
+
+enum PayrollStatus {
+  DRAFT
+  APPROVED
+  PAID
+  CANCELLED
+}
+
+// Inventory Adjustment
+model InventoryAdjustment {
+  id          String              @id @default(cuid())
+  number      String              @unique
+  date        DateTime
+  type        AdjustmentType
+  description String?
+  status      AdjustmentStatus    @default(DRAFT)
+  periodId    String
+  createdById String
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+
+  @@map("inventory_adjustments")
+}
+
+enum AdjustmentType {
+  INCREASE
+  DECREASE
+  CORRECTION
+}
+
+enum AdjustmentStatus {
+  DRAFT
+  POSTED
+  CANCELLED
+}
+
+// Inventory Adjustment Item
+model InventoryAdjustmentItem {
+  id           String   @id @default(cuid())
+  adjustmentId String
+  productId    String
+  quantity     Float
+  unitCost     Float
+  totalCost    Float
+  reason       String?
+  createdAt    DateTime @default(now())
+
+  @@map("inventory_adjustment_items")
 }
