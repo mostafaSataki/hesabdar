@@ -274,11 +274,11 @@ export function SalesCustomers() {
         <TabsContent value="customers" className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-2 rtl:flex-row-reverse">
                 <Users className="h-5 w-5" />
                 {editingCustomer ? "ویرایش مشتری" : "ثبت مشتری جدید"}
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="text-right">
                 اطلاعات مشتری را وارد کنید
               </CardDescription>
             </CardHeader>
@@ -290,12 +290,12 @@ export function SalesCustomers() {
                       control={customerForm.control}
                       name="code"
                       render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>کد مشتری</FormLabel>
+                        <FormItem className="space-y-2">
+                          <FormLabel className="flex justify-end">کد مشتری</FormLabel>
                           <FormControl>
-                            <Input placeholder="001" {...field} />
+                            <Input placeholder="001" className="rtl:text-left placeholder:text-right" {...field} />
                           </FormControl>
-                          <FormMessage />
+                          <FormMessage className="flex justify-end" />
                         </FormItem>
                       )}
                     />
@@ -303,12 +303,12 @@ export function SalesCustomers() {
                       control={customerForm.control}
                       name="name"
                       render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>نام مشتری</FormLabel>
+                        <FormItem className="space-y-2">
+                          <FormLabel className="flex justify-end">نام مشتری</FormLabel>
                           <FormControl>
-                            <Input placeholder="نام مشتری" {...field} />
+                            <Input placeholder="نام مشتری" className="rtl:text-left placeholder:text-right" {...field} />
                           </FormControl>
-                          <FormMessage />
+                          <FormMessage className="flex justify-end" />
                         </FormItem>
                       )}
                     />
@@ -318,12 +318,12 @@ export function SalesCustomers() {
                       control={customerForm.control}
                       name="phone"
                       render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>تلفن</FormLabel>
+                        <FormItem className="space-y-2">
+                          <FormLabel className="flex justify-end">تلفن</FormLabel>
                           <FormControl>
-                            <Input placeholder="021-12345678" {...field} />
+                            <Input placeholder="021-12345678" className="rtl:text-left placeholder:text-right" {...field} />
                           </FormControl>
-                          <FormMessage />
+                          <FormMessage className="flex justify-end" />
                         </FormItem>
                       )}
                     />
@@ -331,12 +331,12 @@ export function SalesCustomers() {
                       control={customerForm.control}
                       name="email"
                       render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>ایمیل</FormLabel>
+                        <FormItem className="space-y-2">
+                          <FormLabel className="flex justify-end">ایمیل</FormLabel>
                           <FormControl>
-                            <Input type="email" placeholder="info@example.com" {...field} />
+                            <Input type="email" placeholder="info@example.com" className="rtl:text-left placeholder:text-left" {...field} />
                           </FormControl>
-                          <FormMessage />
+                          <FormMessage className="flex justify-end" />
                         </FormItem>
                       )}
                     />
@@ -345,15 +345,16 @@ export function SalesCustomers() {
                     control={customerForm.control}
                     name="address"
                     render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>آدرس</FormLabel>
+                      <FormItem className="space-y-2">
+                        <FormLabel className="flex justify-end">آدرس</FormLabel>
                         <FormControl>
                           <Textarea
                             placeholder="آدرس مشتری..."
+                            className="rtl:text-left placeholder:text-right"
                             {...field}
                           />
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage className="flex justify-end" />
                       </FormItem>
                     )}
                   />
@@ -361,16 +362,16 @@ export function SalesCustomers() {
                     control={customerForm.control}
                     name="taxId"
                     render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>شماره اقتصادی</FormLabel>
+                      <FormItem className="space-y-2">
+                        <FormLabel className="flex justify-end">شماره اقتصادی</FormLabel>
                         <FormControl>
-                          <Input placeholder="1234567890" {...field} />
+                          <Input placeholder="1234567890" className="rtl:text-left placeholder:text-right" {...field} />
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage className="flex justify-end" />
                       </FormItem>
                     )}
                   />
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 justify-end rtl:justify-start">
                     <Button type="submit">
                       <Save className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                       {editingCustomer ? "ویرایش مشتری" : "ثبت مشتری"}
