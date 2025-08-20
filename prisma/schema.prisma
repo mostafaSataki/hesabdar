@@ -1,0 +1,439 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Users and Authentication
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  role      UserRole @default(ACCOUNTANT)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relations
+  journalEntries JournalEntry[]
+  receipts      Receipt[]
+  payments      Payment[]
+  salesInvoices SalesInvoice[]
+  purchaseInvoices PurchaseInvoice[]
+  employees     Employee[]
+  
+  @@map("users")
+}
+
+enum UserRole {
+  ADMIN
+  ACCOUNTANT
+  MANAGER
+  EMPLOYEE
+}
+
+// Chart of Accounts
+model Account {
+  id          String      @id @default(cuid())
+  code        String      @unique
+  name        String
+  type        AccountType
+  parentId    String?
+  level       Int         @default(1)
+  isActive    Boolean     @default(true)
+  balance     Decimal     @default(0)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  
+  // Relations
+  parent      Account?    @relation("AccountHierarchy", fields: [parentId], references: [id])
+  children    Account[]   @relation("AccountHierarchy")
+  journalLines JournalLine[]
+  
+  @@map("accounts")
+}
+
+enum AccountType {
+  ASSET
+  LIABILITY
+  EQUITY
+  REVENUE
+  EXPENSE
+}
+
+// Journal Entries and Transactions
+model JournalEntry {
+  id          String        @id @default(cuid())
+  number      String        @unique
+  date        DateTime
+  description String
+  type        JournalType
+  status      EntryStatus   @default(DRAFT)
+  totalDebit  Decimal       @default(0)
+  totalCredit Decimal       @default(0)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  
+  // Relations
+  createdBy   User          @relation(fields: [createdById], references: [id])
+  createdById String
+  lines       JournalLine[]
+  
+  @@map("journal_entries")
+}
+
+enum JournalType {
+  MANUAL
+  SALES
+  PURCHASE
+  RECEIPT
+  PAYMENT
+  PAYROLL
+  ADJUSTMENT
+  CLOSING
+}
+
+enum EntryStatus {
+  DRAFT
+  POSTED
+  CANCELLED
+}
+
+model JournalLine {
+  id          String   @id @default(cuid())
+  debit       Decimal  @default(0)
+  credit      Decimal  @default(0)
+  description String?
+  createdAt   DateTime @default(now())
+  
+  // Relations
+  entry       JournalEntry @relation(fields: [entryId], references: [id], onDelete: Cascade)
+  entryId     String
+  account     Account      @relation(fields: [accountId], references: [id])
+  accountId   String
+  
+  @@map("journal_lines")
+}
+
+// Receipts and Payments
+model Receipt {
+  id          String        @id @default(cuid())
+  number      String        @unique
+  date        DateTime
+  amount      Decimal
+  type        ReceiptType
+  description String
+  status      ReceiptStatus @default(PENDING)
+  bankAccount String?
+  checkNumber String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  
+  // Relations
+  createdBy   User          @relation(fields: [createdById], references: [id])
+  createdById String
+  customerId  String?
+  customer    Customer?     @relation(fields: [customerId], references: [id])
+  
+  @@map("receipts")
+}
+
+enum ReceiptType {
+  CASH
+  CHECK
+  BANK_TRANSFER
+  POS
+}
+
+enum ReceiptStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+  BOUNCED
+}
+
+model Payment {
+  id          String        @id @default(cuid())
+  number      String        @unique
+  date        DateTime
+  amount      Decimal
+  type        PaymentType
+  description String
+  status      PaymentStatus @default(PENDING)
+  bankAccount String?
+  checkNumber String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  
+  // Relations
+  createdBy   User          @relation(fields: [createdById], references: [id])
+  createdById String
+  supplierId  String?
+  supplier    Supplier?     @relation(fields: [supplierId], references: [id])
+  
+  @@map("payments")
+}
+
+enum PaymentType {
+  CASH
+  CHECK
+  BANK_TRANSFER
+  ONLINE
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+  BOUNCED
+}
+
+// Inventory and Products
+model Product {
+  id            String      @id @default(cuid())
+  code          String      @unique
+  name          String
+  description   String?
+  category      String?
+  unit          String      @default("عدد")
+  purchasePrice Decimal     @default(0)
+  salePrice     Decimal     @default(0)
+  quantity      Decimal     @default(0)
+  minQuantity   Decimal     @default(0)
+  isActive      Boolean     @default(true)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  
+  // Relations
+  saleItems     SaleItem[]
+  purchaseItems PurchaseItem[]
+  
+  @@map("products")
+}
+
+model Warehouse {
+  id          String   @id @default(cuid())
+  name        String
+  address     String?
+  phone       String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@map("warehouses")
+}
+
+// Suppliers and Customers
+model Supplier {
+  id          String   @id @default(cuid())
+  code        String   @unique
+  name        String
+  address     String?
+  phone       String?
+  email       String?
+  taxId       String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations
+  purchaseInvoices PurchaseInvoice[]
+  payments         Payment[]
+  
+  @@map("suppliers")
+}
+
+model Customer {
+  id          String   @id @default(cuid())
+  code        String   @unique
+  name        String
+  address     String?
+  phone       String?
+  email       String?
+  taxId       String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations
+  salesInvoices SalesInvoice[]
+  receipts      Receipt[]
+  
+  @@map("customers")
+}
+
+// Sales and Purchases
+model SalesInvoice {
+  id          String           @id @default(cuid())
+  number      String           @unique
+  date        DateTime
+  customerId  String
+  customer    Customer         @relation(fields: [customerId], references: [id])
+  totalAmount Decimal          @default(0)
+  discount    Decimal          @default(0)
+  taxAmount   Decimal          @default(0)
+  finalAmount Decimal          @default(0)
+  status      InvoiceStatus    @default(DRAFT)
+  description String?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  
+  // Relations
+  createdBy   User             @relation(fields: [createdById], references: [id])
+  createdById String
+  items       SaleItem[]
+  
+  @@map("sales_invoices")
+}
+
+model SaleItem {
+  id          String   @id @default(cuid())
+  quantity    Decimal
+  unitPrice   Decimal
+  discount    Decimal  @default(0)
+  totalPrice  Decimal
+  createdAt   DateTime @default(now())
+  
+  // Relations
+  invoice     SalesInvoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  invoiceId   String
+  product     Product      @relation(fields: [productId], references: [id])
+  productId   String
+  
+  @@map("sale_items")
+}
+
+model PurchaseInvoice {
+  id          String           @id @default(cuid())
+  number      String           @unique
+  date        DateTime
+  supplierId  String
+  supplier    Supplier         @relation(fields: [supplierId], references: [id])
+  totalAmount Decimal          @default(0)
+  discount    Decimal          @default(0)
+  taxAmount   Decimal          @default(0)
+  finalAmount Decimal          @default(0)
+  status      InvoiceStatus    @default(DRAFT)
+  description String?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  
+  // Relations
+  createdBy   User             @relation(fields: [createdById], references: [id])
+  createdById String
+  items       PurchaseItem[]
+  
+  @@map("purchase_invoices")
+}
+
+model PurchaseItem {
+  id          String   @id @default(cuid())
+  quantity    Decimal
+  unitPrice   Decimal
+  discount    Decimal  @default(0)
+  totalPrice  Decimal
+  createdAt   DateTime @default(now())
+  
+  // Relations
+  invoice     PurchaseInvoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  invoiceId   String
+  product     Product         @relation(fields: [productId], references: [id])
+  productId   String
+  
+  @@map("purchase_items")
+}
+
+enum InvoiceStatus {
+  DRAFT
+  POSTED
+  PAID
+  CANCELLED
+  RETURNED
+}
+
+// Payroll and Employees
+model Employee {
+  id            String      @id @default(cuid())
+  code          String      @unique
+  name          String
+  nationalId    String?
+  phone         String?
+  email         String?
+  address       String?
+  position      String?
+  department    String?
+  baseSalary    Decimal     @default(0)
+  hireDate      DateTime
+  isActive      Boolean     @default(true)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  
+  // Relations
+  payrollRecords PayrollRecord[]
+  userId        String?
+  user          User?       @relation(fields: [userId], references: [id])
+  
+  @@map("employees")
+}
+
+model PayrollRecord {
+  id            String      @id @default(cuid())
+  employeeId    String
+  employee      Employee    @relation(fields: [employeeId], references: [id])
+  year          Int
+  month         Int
+  baseSalary    Decimal     @default(0)
+  allowances    Decimal     @default(0)
+  deductions    Decimal     @default(0)
+  tax           Decimal     @default(0)
+  insurance     Decimal     @default(0)
+  netSalary     Decimal     @default(0)
+  status        PayrollStatus @default(PENDING)
+  paymentDate   DateTime?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  
+  @@map("payroll_records")
+}
+
+enum PayrollStatus {
+  PENDING
+  CALCULATED
+  APPROVED
+  PAID
+  CANCELLED
+}
+
+// Financial Periods
+model FinancialPeriod {
+  id          String   @id @default(cuid())
+  name        String
+  startDate   DateTime
+  endDate     DateTime
+  isActive    Boolean  @default(false)
+  isClosed    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@map("financial_periods")
+}
+
+// System Settings
+model Setting {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  value       String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@map("settings")
+}
