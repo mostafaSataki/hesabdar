@@ -327,7 +327,7 @@ export function InventoryAdjustment() {
           {/* Summary Cards */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row rtl:flex-row-reverse items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">کل کالاها</CardTitle>
                 <Package className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -340,7 +340,7 @@ export function InventoryAdjustment() {
             </Card>
 
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row rtl:flex-row-reverse items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">موجودی کل</CardTitle>
                 <Box className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -353,7 +353,7 @@ export function InventoryAdjustment() {
             </Card>
 
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row rtl:flex-row-reverse items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">کالاهای کم موجود</CardTitle>
                 <AlertTriangle className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -366,7 +366,7 @@ export function InventoryAdjustment() {
             </Card>
 
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row rtl:flex-row-reverse items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">ارزش انبار</CardTitle>
                 <Calculator className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -462,7 +462,7 @@ export function InventoryAdjustment() {
                     <div className="flex justify-between items-center">
                       <h3 className="text-lg font-semibold">ردیف‌های تنظیم</h3>
                       <Button type="button" variant="outline" onClick={addAdjustmentItem}>
-                        <Plus className="h-4 w-4 ml-2" />
+                        <Plus className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                         افزودن ردیف
                       </Button>
                     </div>
@@ -538,7 +538,7 @@ export function InventoryAdjustment() {
                         مجموع: {getAdjustmentTotal().toLocaleString("fa-IR")} تومان
                       </div>
                       <Button type="submit">
-                        <Save className="h-4 w-4 ml-2" />
+                        <Save className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                         ثبت تنظیم
                       </Button>
                     </div>
@@ -561,12 +561,12 @@ export function InventoryAdjustment() {
               <div className="flex gap-4 mb-6">
                 <div className="flex-1">
                   <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                    <Search className="absolute left-3 rtl:right-3 rtl:left-auto top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                     <Input
                       placeholder="جستجو در تنظیمات..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pl-10"
+                      className="pl-10 rtl:pr-10 rtl:pl-0"
                     />
                   </div>
                 </div>
@@ -675,12 +675,12 @@ export function InventoryAdjustment() {
             <CardContent>
               <div className="mb-6">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                  <Search className="absolute left-3 rtl:right-3 rtl:left-auto top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                   <Input
                     placeholder="جستجو در کالاها..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10"
+                    className="pl-10 rtl:pr-10 rtl:pl-0"
                   />
                 </div>
               </div>

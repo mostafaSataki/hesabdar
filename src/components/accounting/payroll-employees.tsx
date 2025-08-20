@@ -463,7 +463,7 @@ export function PayrollEmployees() {
                   />
                   <div className="flex gap-2">
                     <Button type="submit" className="btn-rtl">
-                      <Save className="h-4 w-4 ml-2" />
+                      <Save className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                       {editingEmployee ? "ویرایش کارمند" : "ثبت کارمند"}
                     </Button>
                     {editingEmployee && (
@@ -711,7 +711,7 @@ export function PayrollEmployees() {
                   </div>
                   <div className="flex gap-2">
                     <Button type="submit">
-                      <Calculator className="h-4 w-4 ml-2" />
+                      <Calculator className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                       محاسبه و ثبت فیش حقوقی
                     </Button>
                   </div>

@@ -304,7 +304,7 @@ export function BankReconciliation() {
           {/* Summary Cards */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row rtl:flex-row-reverse items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">حساب‌های بانکی</CardTitle>
                 <Building2 className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -317,7 +317,7 @@ export function BankReconciliation() {
             </Card>
 
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row rtl:flex-row-reverse items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">در انتظار reconcile</CardTitle>
                 <Clock className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -330,7 +330,7 @@ export function BankReconciliation() {
             </Card>
 
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row rtl:flex-row-reverse items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">مغایرت‌ها</CardTitle>
                 <AlertTriangle className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -343,7 +343,7 @@ export function BankReconciliation() {
             </Card>
 
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row rtl:flex-row-reverse items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">تکمیل شده</CardTitle>
                 <CheckCircle className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -453,7 +453,7 @@ export function BankReconciliation() {
                   </div>
 
                   <Button type="submit">
-                    <RefreshCw className="h-4 w-4 ml-2" />
+                    <RefreshCw className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                     شروع reconcile
                   </Button>
                 </form>
@@ -474,12 +474,12 @@ export function BankReconciliation() {
               <div className="flex gap-4 mb-6">
                 <div className="flex-1">
                   <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                    <Search className="absolute left-3 rtl:right-3 rtl:left-auto top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                     <Input
                       placeholder="جستجو در reconcileها..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pl-10"
+                      className="pl-10 rtl:pr-10 rtl:pl-0"
                     />
                   </div>
                 </div>
@@ -523,9 +523,9 @@ export function BankReconciliation() {
                           {Math.abs(reconciliation.difference).toLocaleString("fa-IR")} تومان
                           {reconciliation.difference !== 0 && (
                             reconciliation.difference > 0 ? (
-                              <TrendingUp className="h-4 w-4 inline mr-1" />
+                              <TrendingUp className="h-4 w-4 inline mr-1 rtl:ml-1 rtl:mr-0" />
                             ) : (
-                              <TrendingDown className="h-4 w-4 inline mr-1" />
+                              <TrendingDown className="h-4 w-4 inline mr-1 rtl:ml-1 rtl:mr-0" />
                             )
                           )}
                         </TableCell>
@@ -586,7 +586,7 @@ export function BankReconciliation() {
                     </p>
                   </div>
                   <Button onClick={openDiscrepancyDialog}>
-                    <Plus className="h-4 w-4 ml-2" />
+                    <Plus className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                     ثبت مغایرت جدید
                   </Button>
                 </div>
@@ -601,7 +601,7 @@ export function BankReconciliation() {
                               <h3 className="font-semibold">{reconciliation.bankName}</h3>
                               <p className="text-sm text-gray-600">{reconciliation.accountNumber}</p>
                             </div>
-                            <div className="text-right">
+                            <div className="text-right rtl:text-left">
                               <Badge variant="outline" className="mb-1">
                                 {getDiscrepancyType(discrepancy.type).label}
                               </Badge>
@@ -775,7 +775,7 @@ export function BankReconciliation() {
 
               <div className="flex gap-2">
                 <Button type="submit" className="flex-1">
-                  <RefreshCw className="h-4 w-4 ml-2" />
+                  <RefreshCw className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                   شروع reconcile
                 </Button>
                 <Button 
@@ -870,7 +870,7 @@ export function BankReconciliation() {
               />
               <div className="flex gap-2">
                 <Button type="submit" className="flex-1">
-                  <Plus className="h-4 w-4 ml-2" />
+                  <Plus className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                   ثبت مغایرت
                 </Button>
                 <Button 

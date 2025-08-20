@@ -378,7 +378,7 @@ export function JournalEntryForm() {
                   </CardDescription>
                 </div>
                 <Button onClick={addLine} variant="outline" size="sm" className="btn-rtl">
-                  <Plus className="h-4 w-4 ml-2" />
+                  <Plus className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                   افزودن ردیف
                 </Button>
               </div>
@@ -574,11 +574,11 @@ export function JournalEntryForm() {
 
                 <div className="flex gap-2 flex-wrap">
                   <Button onClick={onSaveAsDraft} variant="outline" className="btn-rtl">
-                    <Save className="h-4 w-4 ml-2" />
+                    <Save className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                     ذخیره پیش‌نویس
                   </Button>
                   <Button onClick={onPreview} variant="outline" className="btn-rtl">
-                    <FileText className="h-4 w-4 ml-2" />
+                    <FileText className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                     پیش‌نمایش
                   </Button>
                   <Button 
@@ -586,7 +586,7 @@ export function JournalEntryForm() {
                     disabled={!isBalanced()}
                     className="btn-rtl"
                   >
-                    <Send className="h-4 w-4 ml-2" />
+                    <Send className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                     ثبت و ارسال
                   </Button>
                 </div>
@@ -669,7 +669,7 @@ function ClosingAccountsForm() {
               disabled={isProcessing || !closingDate}
               className="w-full"
             >
-              <Calculator className="h-4 w-4 ml-2" />
+              <Calculator className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
               {isProcessing ? "در حال پردازش..." : "بستن حساب‌ها"}
             </Button>
           </div>
@@ -682,11 +682,11 @@ function ClosingAccountsForm() {
               <div key={account.id} className="flex justify-between items-center p-3 border rounded-lg">
                 <div>
                   <span className="font-medium">{account.name}</span>
-                  <Badge variant="outline" className="mr-2">
+                  <Badge variant="outline" className="mr-2 rtl:ml-2 rtl:mr-2 rtl:ml-0 rtl:mr-0">
                     {account.type === "REVENUE" ? "درآمد" : "هزینه"}
                   </Badge>
                 </div>
-                <div className="text-right">
+                <div className="text-right rtl:text-left">
                   <span className="persian-numbers font-medium">
                     {account.balance.toLocaleString("fa-IR")} تومان
                   </span>

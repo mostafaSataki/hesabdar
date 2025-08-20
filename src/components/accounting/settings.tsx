@@ -293,7 +293,7 @@ export function Settings() {
                     control={userForm.control}
                     name="status"
                     render={({ field }) => (
-                      <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+                      <FormItem className="flex flex-row rtl:flex-row-reverse items-center justify-between rounded-lg border p-3 shadow-sm">
                         <div className="space-y-0.5">
                           <FormLabel>وضعیت فعال</FormLabel>
                           <FormDescription className="text-sm">
@@ -311,7 +311,7 @@ export function Settings() {
                   />
                   <div className="flex gap-2">
                     <Button type="submit">
-                      <Save className="h-4 w-4 ml-2" />
+                      <Save className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                       {editingUser ? "ویرایش کاربر" : "ایجاد کاربر"}
                     </Button>
                     {editingUser && (
@@ -561,7 +561,7 @@ export function Settings() {
                       control={systemSettingsForm.control}
                       name="autoBackup"
                       render={({ field }) => (
-                        <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+                        <FormItem className="flex flex-row rtl:flex-row-reverse items-center justify-between rounded-lg border p-3 shadow-sm">
                           <div className="space-y-0.5">
                             <FormLabel>پشتیبان‌گیری خودکار</FormLabel>
                             <FormDescription className="text-sm">
@@ -581,7 +581,7 @@ export function Settings() {
                       control={systemSettingsForm.control}
                       name="notificationEnabled"
                       render={({ field }) => (
-                        <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+                        <FormItem className="flex flex-row rtl:flex-row-reverse items-center justify-between rounded-lg border p-3 shadow-sm">
                           <div className="space-y-0.5">
                             <FormLabel>اعلان‌ها</FormLabel>
                             <FormDescription className="text-sm">
@@ -600,7 +600,7 @@ export function Settings() {
                   </div>
                   <div className="flex gap-2">
                     <Button type="submit">
-                      <Save className="h-4 w-4 ml-2" />
+                      <Save className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                       ذخیره تنظیمات
                     </Button>
                   </div>

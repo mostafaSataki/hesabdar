@@ -388,7 +388,7 @@ export function PurchaseManagement() {
           {/* Statistics Cards */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 rtl:flex-row-reverse">
                 <CardTitle className="text-sm font-medium">کل خریدها</CardTitle>
                 <TrendingUp className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -399,7 +399,7 @@ export function PurchaseManagement() {
               </CardContent>
             </Card>
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 rtl:flex-row-reverse">
                 <CardTitle className="text-sm font-medium">پرداخت‌های معوق</CardTitle>
                 <Clock className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -410,7 +410,7 @@ export function PurchaseManagement() {
               </CardContent>
             </Card>
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 rtl:flex-row-reverse">
                 <CardTitle className="text-sm font-medium">پیش‌نویس‌ها</CardTitle>
                 <FileText className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -419,7 +419,7 @@ export function PurchaseManagement() {
               </CardContent>
             </Card>
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 rtl:flex-row-reverse">
                 <CardTitle className="text-sm font-medium">سررسید گذشته</CardTitle>
                 <AlertTriangle className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -515,7 +515,7 @@ export function PurchaseManagement() {
                     <div className="flex items-center justify-between">
                       <h3 className="text-lg font-medium">آیتم‌های فاکتور</h3>
                       <Button type="button" variant="outline" size="sm" onClick={addInvoiceItem}>
-                        <Plus className="h-4 w-4 ml-2" />
+                        <Plus className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                         افزودن آیتم
                       </Button>
                     </div>
@@ -662,7 +662,7 @@ export function PurchaseManagement() {
 
                   <div className="flex gap-2">
                     <Button type="submit">
-                      <Save className="h-4 w-4 ml-2" />
+                      <Save className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                       {editingInvoice ? "ویرایش فاکتور" : "ایجاد فاکتور"}
                     </Button>
                     {editingInvoice && (

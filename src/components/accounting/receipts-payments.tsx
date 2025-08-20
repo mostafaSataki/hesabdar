@@ -522,11 +522,11 @@ export function ReceiptsPayments() {
 
                   <div className="flex gap-2">
                     <Button type="submit" className="btn-rtl">
-                      <Save className="h-4 w-4 ml-2" />
+                      <Save className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                       ثبت دریافت
                     </Button>
                     <Button type="button" variant="outline" className="btn-rtl">
-                      <Send className="h-4 w-4 ml-2" />
+                      <Send className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                       ارسال برای تأیید
                     </Button>
                   </div>
@@ -799,11 +799,11 @@ export function ReceiptsPayments() {
 
                   <div className="flex gap-2">
                     <Button type="submit" className="btn-rtl">
-                      <Save className="h-4 w-4 ml-2" />
+                      <Save className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                       ثبت پرداخت
                     </Button>
                     <Button type="button" variant="outline" className="btn-rtl">
-                      <Send className="h-4 w-4 ml-2" />
+                      <Send className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                       ارسال برای تأیید
                     </Button>
                   </div>
@@ -950,7 +950,7 @@ export function ReceiptsPayments() {
                       )}
                     />
                     <Button type="submit">
-                      <CheckCircle className="h-4 w-4 ml-2" />
+                      <CheckCircle className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                       تسویه چک
                     </Button>
                   </form>
@@ -1073,7 +1073,7 @@ export function ReceiptsPayments() {
                       )}
                     />
                     <Button type="submit">
-                      <AlertTriangle className="h-4 w-4 ml-2" />
+                      <AlertTriangle className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                       ثبت مغایرت
                     </Button>
                   </form>

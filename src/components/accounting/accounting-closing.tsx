@@ -347,9 +347,9 @@ export function AccountingClosing() {
                   </div>
                   <Button type="submit" disabled={isLoading}>
                     {isLoading ? (
-                      <RefreshCw className="h-4 w-4 ml-2 animate-spin" />
+                      <RefreshCw className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0 animate-spin" />
                     ) : (
-                      <Plus className="h-4 w-4 ml-2" />
+                      <Plus className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                     )}
                     {isLoading ? "در حال ایجاد..." : "ایجاد دوره"}
                   </Button>
@@ -577,7 +577,7 @@ export function AccountingClosing() {
                       className="mt-2" 
                       onClick={() => closePeriod(selectedPeriod)}
                     >
-                      <Lock className="h-4 w-4 ml-2" />
+                      <Lock className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                       بستن حسابها
                     </Button>
                   </Alert>
@@ -699,9 +699,9 @@ export function AccountingClosing() {
               <div className="flex gap-2">
                 <Button type="submit" className="flex-1" disabled={isLoading}>
                   {isLoading ? (
-                    <RefreshCw className="h-4 w-4 ml-2 animate-spin" />
+                    <RefreshCw className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0 animate-spin" />
                   ) : (
-                    <Lock className="h-4 w-4 ml-2" />
+                    <Lock className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                   )}
                   {isLoading ? "در حال بستن..." : "بستن حسابها"}
                 </Button>

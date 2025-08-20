@@ -372,7 +372,7 @@ export function SalesCustomers() {
                   />
                   <div className="flex gap-2">
                     <Button type="submit">
-                      <Save className="h-4 w-4 ml-2" />
+                      <Save className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                       {editingCustomer ? "ویرایش مشتری" : "ثبت مشتری"}
                     </Button>
                     {editingCustomer && (
@@ -546,7 +546,7 @@ export function SalesCustomers() {
                   </CardDescription>
                 </div>
                 <Button onClick={addInvoiceItem} variant="outline" size="sm">
-                  <Plus className="h-4 w-4 ml-2" />
+                  <Plus className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                   افزودن کالا
                 </Button>
               </div>
@@ -644,7 +644,7 @@ export function SalesCustomers() {
 
                 <div className="flex gap-2">
                   <Button onClick={invoiceForm.handleSubmit(onInvoiceSubmit)}>
-                    <Save className="h-4 w-4 ml-2" />
+                    <Save className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                     ثبت فاکتور
                   </Button>
                 </div>

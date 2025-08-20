@@ -330,7 +330,7 @@ export function JournalManagement() {
           {/* Statistics Cards */}
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row rtl:flex-row-reverse items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">کل اسناد</CardTitle>
                 <FileText className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -339,7 +339,7 @@ export function JournalManagement() {
               </CardContent>
             </Card>
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row rtl:flex-row-reverse items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">پیش‌نویس</CardTitle>
                 <Clock className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -348,7 +348,7 @@ export function JournalManagement() {
               </CardContent>
             </Card>
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row rtl:flex-row-reverse items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">ثبت شده</CardTitle>
                 <CheckCircle className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -357,7 +357,7 @@ export function JournalManagement() {
               </CardContent>
             </Card>
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row rtl:flex-row-reverse items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">مجموع بدهکار</CardTitle>
                 <Calculator className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -368,7 +368,7 @@ export function JournalManagement() {
               </CardContent>
             </Card>
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row rtl:flex-row-reverse items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">مجموع بستانکار</CardTitle>
                 <Calculator className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -466,7 +466,7 @@ export function JournalManagement() {
                     <div className="flex items-center justify-between">
                       <h3 className="text-lg font-medium">آیتم‌های سند</h3>
                       <Button type="button" variant="outline" size="sm" onClick={addEntryItem}>
-                        <Plus className="h-4 w-4 ml-2" />
+                        <Plus className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                         افزودن آیتم
                       </Button>
                     </div>
@@ -564,7 +564,7 @@ export function JournalManagement() {
 
                   <div className="flex gap-2">
                     <Button type="submit">
-                      <Save className="h-4 w-4 ml-2" />
+                      <Save className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                       {editingEntry ? "ویرایش سند" : "ایجاد سند"}
                     </Button>
                     {editingEntry && (

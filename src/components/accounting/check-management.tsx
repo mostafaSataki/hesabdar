@@ -369,7 +369,7 @@ export function CheckManagement() {
           {/* Summary Cards */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row rtl:flex-row-reverse items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">کل چک‌ها</CardTitle>
                 <CreditCard className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -382,7 +382,7 @@ export function CheckManagement() {
             </Card>
 
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row rtl:flex-row-reverse items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">در انتظار تسویه</CardTitle>
                 <Clock className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -395,7 +395,7 @@ export function CheckManagement() {
             </Card>
 
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row rtl:flex-row-reverse items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">چک‌های سررسید گذشته</CardTitle>
                 <AlertTriangle className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -408,7 +408,7 @@ export function CheckManagement() {
             </Card>
 
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row rtl:flex-row-reverse items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">چک‌های تسویه شده</CardTitle>
                 <CheckCircle className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -568,7 +568,7 @@ export function CheckManagement() {
                   </div>
 
                   <Button type="submit">
-                    <Plus className="h-4 w-4 ml-2" />
+                    <Plus className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                     ثبت چک
                   </Button>
                 </form>
@@ -589,12 +589,12 @@ export function CheckManagement() {
               <div className="flex gap-4 mb-6">
                 <div className="flex-1">
                   <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                    <Search className="absolute left-3 rtl:right-3 rtl:left-auto top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                     <Input
                       placeholder="جستجو در چک‌ها..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pl-10"
+                      className="pl-10 rtl:pr-10 rtl:pl-0"
                     />
                   </div>
                 </div>
@@ -641,7 +641,7 @@ export function CheckManagement() {
                     onClick={openBatchSettlementDialog}
                     disabled={selectedChecks.length === 0}
                   >
-                    <RefreshCw className="h-4 w-4 ml-2" />
+                    <RefreshCw className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                     تسویه گروهی
                   </Button>
                   <Button
@@ -980,7 +980,7 @@ export function CheckManagement() {
               />
               <div className="flex gap-2">
                 <Button type="submit" className="flex-1">
-                  <RefreshCw className="h-4 w-4 ml-2" />
+                  <RefreshCw className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                   تسویه چک
                 </Button>
                 <Button 
@@ -1080,7 +1080,7 @@ export function CheckManagement() {
               
               <div className="flex gap-2">
                 <Button type="submit" className="flex-1">
-                  <RefreshCw className="h-4 w-4 ml-2" />
+                  <RefreshCw className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                   تسویه {selectedChecks.length} چک
                 </Button>
                 <Button 
@@ -1182,11 +1182,11 @@ export function CheckManagement() {
               
               <div className="flex gap-2">
                 <Button variant="outline" className="flex-1">
-                  <Download className="h-4 w-4 ml-2" />
+                  <Download className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                   دانلود PDF
                 </Button>
                 <Button variant="outline" className="flex-1">
-                  <Download className="h-4 w-4 ml-2" />
+                  <Download className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                   دانلود اکسل
                 </Button>
                 <Button onClick={() => setIsReportDialogOpen(false)}>

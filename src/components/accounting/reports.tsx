@@ -223,7 +223,7 @@ export function Reports() {
           </div>
           <div className="flex gap-2 mt-4">
             <Button onClick={generateReport} className="btn-rtl">
-              <Filter className="h-4 w-4 ml-2" />
+              <Filter className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
               ایجاد گزارش
             </Button>
           </div>
@@ -241,7 +241,7 @@ export function Reports() {
         <TabsContent value="financial" className="space-y-6">
           <div className="grid gap-4 md:grid-cols-3">
             <Card className="card-rtl">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row rtl:flex-row-reverse items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium rtl-align-right">کل دارایی‌ها</CardTitle>
                 <TrendingUp className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -255,7 +255,7 @@ export function Reports() {
               </CardContent>
             </Card>
             <Card className="card-rtl">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row rtl:flex-row-reverse items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium rtl-align-right">کل بدهی‌ها</CardTitle>
                 <TrendingDown className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -269,7 +269,7 @@ export function Reports() {
               </CardContent>
             </Card>
             <Card className="card-rtl">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row rtl:flex-row-reverse items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium rtl-align-right">سود خالص</CardTitle>
                 <DollarSign className="h-4 w-4 text-muted-foreground" />
               </CardHeader>

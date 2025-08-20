@@ -704,7 +704,7 @@ export function InventorySuppliers() {
 
                   <div className="flex gap-2">
                     <Button type="submit">
-                      <Save className="h-4 w-4 ml-2" />
+                      <Save className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                       {editingProduct ? "ویرایش کالا" : "ثبت کالا"}
                     </Button>
                     {editingProduct && (
@@ -955,7 +955,7 @@ export function InventorySuppliers() {
 
                   <div className="flex gap-2">
                     <Button type="submit">
-                      <Save className="h-4 w-4 ml-2" />
+                      <Save className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                       {editingSupplier ? "ویرایش تأمین‌کننده" : "ثبت تأمین‌کننده"}
                     </Button>
                     {editingSupplier && (
@@ -1160,7 +1160,7 @@ export function InventorySuppliers() {
                     <div className="flex items-center justify-between">
                       <h3 className="text-lg font-semibold">آیتم‌های کالا</h3>
                       <Button type="button" onClick={addWarehouseEntryItem} variant="outline" size="sm">
-                        <Plus className="h-4 w-4 ml-2" />
+                        <Plus className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                         افزودن آیتم
                       </Button>
                     </div>
@@ -1257,11 +1257,11 @@ export function InventorySuppliers() {
 
                   <div className="flex gap-2">
                     <Button type="submit">
-                      <Save className="h-4 w-4 ml-2" />
+                      <Save className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                       ثبت ورود کالا
                     </Button>
                     <Button type="button" variant="outline">
-                      <ArrowLeftRight className="h-4 w-4 ml-2" />
+                      <ArrowLeftRight className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                       ثبت برگشت کالا
                     </Button>
                   </div>
@@ -1377,7 +1377,7 @@ export function InventorySuppliers() {
                   </div>
 
                   <Button type="submit">
-                    <Calculator className="h-4 w-4 ml-2" />
+                    <Calculator className="h-4 w-4 ml-2 rtl:mr-2 rtl:ml-0" />
                     ثبت تعدیل موجودی
                   </Button>
                 </form>
